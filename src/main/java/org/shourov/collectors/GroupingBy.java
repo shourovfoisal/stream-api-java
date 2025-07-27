@@ -56,4 +56,13 @@ public class GroupingBy {
         Map<String, Double> group = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.summingDouble(Employee::getSalary)));
         Utils.printMap(group);
     }
+    
+    public static void groupingThenMapping() {
+        List<Employee> employees = Employee.getEmployees();
+        Map<String, List<String>> group = employees.stream().collect(Collectors.groupingBy(
+                Employee::getDepartment, 
+                Collectors.mapping(employee -> employee.getId() + "-" + employee.getName().toUpperCase(), Collectors.toList())
+        ));
+        Utils.printMap(group);
+    }
 }
